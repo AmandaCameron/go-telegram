@@ -64,7 +64,7 @@ func (msg *Message) GetContext(name string) interface{} {
 
 // IsGroup returns true if this message took place inside a group chat.
 func (msg Message) IsGroup() bool {
-	return (msg.Message.Chat.UserName == "")
+	return (msg.Message.Chat.FirstName == "" && msg.Message.Chat.LastName == "")
 }
 
 // Message creates a new outbound message to the specified chatID and with
