@@ -71,7 +71,16 @@ type Commands []Command
 
 // Add adds a new command to the set.
 func (cmds *Commands) Add(cmd Command) {
-	*cmds = append(*cmds, cmd)
+	var newCmds Commands
+	for _, oldCmd := range *cmds {
+		if oldCmd.Name == cmd.Name {
+			continue
+		}
+
+		newCmds = append(newCmds, oldCmd)
+	}
+
+	*cmds = append(newCmds, cmd)
 }
 
 // Handle loops through the commands and calls the proper one's Handle method

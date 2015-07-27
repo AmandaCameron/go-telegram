@@ -11,7 +11,7 @@ type Bot struct {
 	Help       string
 	LastUpdate int32
 
-	commands Commands
+	Commands Commands
 }
 
 // Sendable means you can use this to send a message or file to a user.
@@ -35,7 +35,7 @@ func NewBot(token string) (*Bot, error) {
 	bot := &Bot{
 		api: b,
 
-		commands: Commands{},
+		Commands: Commands{},
 	}
 
 	bot.AddCommand(helpCommand)
@@ -45,12 +45,12 @@ func NewBot(token string) (*Bot, error) {
 
 // AddCommand adds a new command to the bot's default command set.
 func (bot *Bot) AddCommand(cmd Command) {
-	bot.commands.Add(cmd)
+	bot.Commands.Add(cmd)
 }
 
 // HandleCommand handles a command from the bot's default command set.
 func (bot *Bot) HandleCommand(msg Message) bool {
-	return bot.commands.Handle(msg)
+	return bot.Commands.Handle(msg)
 }
 
 // SendTyping sends a message saying that the bot is typing a message.
@@ -119,6 +119,6 @@ var helpCommand = Command{
 	Handle: func(msg Message) {
 		msg.ReplyWith("%s\n\n%s",
 			msg.bot.Help,
-			msg.bot.commands.Help(msg.IsGroup())).Send()
+			msg.bot.Commands.Help(msg.IsGroup())).Send()
 	},
 }
